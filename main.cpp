@@ -3,7 +3,7 @@
 #include <termios.h>
 #include <unistd.h>
 #include <string>
-#include "record.h"
+#include "modules/record.h"
 
 #define KEY_ARROW_UP 65
 #define KEY_ARROW_DOWN 66
