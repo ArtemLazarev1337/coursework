@@ -7,7 +7,7 @@ void inputFromFile(std::vector<Record>& records, const std::string& fileName) {
     std::ifstream fin(fileName);
 
     if (!fin.is_open()) {
-        std::cerr << "Не удалось открыть файл: " << fileName << std::endl;
+        std::cerr << "\033[31mНе удалось открыть файл: \033[0;33m" << fileName << "\033[0m\n";
         return;
     }
 
@@ -25,6 +25,8 @@ void inputFromFile(std::vector<Record>& records, const std::string& fileName) {
     }
 
     fin.close();
+
+    std::cout << "\033[32mДанные успешно загружены!\033[0m";
 }
 
 void outputToFile(std::vector<Record>& records, const std::string& fileName) {
@@ -37,5 +39,8 @@ void outputToFile(std::vector<Record>& records, const std::string& fileName) {
         fout << record.tankCapacity << " ";
         fout << record.ownerName << " ";
         fout << record.carNumber << " ";
+        fout << "\n";
     }
+
+    std::cout << "\033[32mДанные успешно сохранены!\033[0m";
 }

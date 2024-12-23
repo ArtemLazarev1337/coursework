@@ -7,25 +7,28 @@ void swap(Record& a, Record& b) {
     b = t;
 }
 
-void customSort(std::vector<Record>& records, bool (*compare)(const Record&, const Record&)) {
-    for (int i = 0; i < records.size() - 1; i++) {
-        for (int j = i + 1; j < records.size(); j++) {
-            if (compare(records[i], records[j])) {
-                swap(records[i], records[j]);
+void customSort(std::vector<Record>& records, bool (*compare)(const Record&, const Record&, bool ascending), bool ascending = true) {
+    bool isSorted = false;
+    while (!isSorted) {
+        isSorted = true;
+        for (int i = 1; i < records.size(); i++) {
+            if (compare(records[i - 1], records[i], ascending)) {
+                swap(records[i - 1], records[i]);
+                isSorted = false;
             }
         }
     }
 }
 
-bool compareByOwnerName(const Record& a, const Record& b) {
-    return a.ownerName > b.ownerName;
+bool compareByOwnerName(const Record& a, const Record& b, bool ascending) {
+    return ascending ? a.ownerName > b.ownerName : a.ownerName < b.ownerName;
 }
 
-bool compareByCarBrandAndOwnerName(const Record& a, const Record& b) {
-    if (a.carBrand == b.carBrand) return a.ownerName > b.ownerName;
-    return a.carBrand > b.carBrand;
+bool compareByCarBrandAndOwnerName(const Record& a, const Record& b, bool ascending) {
+    if (a.carBrand == b.carBrand) return ascending ? a.ownerName > b.ownerName : a.ownerName < b.ownerName;
+    return ascending ? a.carBrand > b.carBrand : a.carBrand < b.carBrand;
 }
 
-bool compareByTankCapacity(const Record& a, const Record& b) {
-    return a.tankCapacity > b.tankCapacity;
+bool compareByTankCapacity(const Record& a, const Record& b, bool ascending) {
+    return ascending ? a.tankCapacity > b.tankCapacity : a.tankCapacity < b.tankCapacity;
 }

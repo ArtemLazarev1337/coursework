@@ -39,6 +39,7 @@ void printTable(std::vector<Record>& records) {
             std::cout << "├────┼───────────────┼────────────┼──────────────┼───────────────┼──────────────────┼────────────┤\n";
     }
     std::cout << "└────┴───────────────┴────────────┴──────────────┴───────────────┴──────────────────┴────────────┘\n";
+    std::cout << "\033[1mРезультатов: \033[0;33m" << records.size() << "\033[0m\n";
 }
 
 void printListOfBrands(const std::vector<Record>& records) {
@@ -63,7 +64,7 @@ void printListOfBrands(const std::vector<Record>& records) {
         id += 1;
     }
     std::cout << "└────┴───────────────┴───────┘\n";
-    std::cout << "\e[1mВсего различных марок:\e[0m \e[33m" << brandCounts.size() << "\e[0m\n";
+    std::cout << "\e[1mВсего различных марок: \e[0;33m" << brandCounts.size() << "\e[0m\n";
 }
 
 void findByOwnerName(const std::vector<Record>& records, const std::string& ownerSurname) {
@@ -77,7 +78,7 @@ void findByOwnerName(const std::vector<Record>& records, const std::string& owne
 }
 
 void renderMenu(const std::string list[], int optionCount, int selectedOption) {
-    std::cout << "\033[1m↑/↓ — перемещение ↵ — выполнить ⌫ — очистить\033[0m\n\n";
+    std::cout << "\033[0;1m↑/↓ — перемещение ↵ — выполнить ⌫ — очистить\033[0m\n\n";
     for (int opt = 1; opt <= optionCount; opt++) {
         if (opt == selectedOption) std::cout << "\033[30;47m";
         std::cout << opt << ". " << list[opt - 1] << std::endl << "\033[0m";

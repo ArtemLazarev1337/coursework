@@ -42,33 +42,35 @@ const int OPTION_COUNT = sizeof(MENU) / sizeof(MENU[0]);
 void addRecord(std::vector<Record>& records) {
     Record record;
 
-    std::cout << "Введите марку автомобиля: ";
+    std::cout << "\033[1mВведите марку автомобиля: \033[0m";
     std::string carBrand;
     std::getline(std::cin, carBrand);
     record.carBrand = carBrand;
 
-    std::cout << "Введите марку топлива: ";
+    std::cout << "\033[1mВведите марку топлива: \033[0m";
     std::string fuelBrand;
     std::getline(std::cin, fuelBrand);
     record.fuelBrand = fuelBrand;
 
-    std::cout << "Введите имя владельца: ";
+    std::cout << "\033[1mВведите имя владельца: \033[0m";
     std::string ownerName;
     std::getline(std::cin, ownerName);
     record.ownerName = ownerName;
 
-    std::cout << "Введите номер автомобиля: ";
+    std::cout << "\033[1mВведите номер автомобиля: \033[0m";
     std::string carNumber;
     std::getline(std::cin, carNumber);
     record.carNumber = carNumber;
 
-    std::cout << "Введите мощность двигателя: ";
+    std::cout << "\033[1mВведите мощность двигателя (число): \033[0m";
     std::cin >> record.enginePower;
 
-    std::cout << "Введите объём бака: ";
+    std::cout << "\033[1mВведите объём бака (число): \033[0m";
     std::cin >> record.tankCapacity;
 
     records.push_back(record);
+
+    std::cout << "\033[0;32mЗапись добавлена!\033[0m";
 }
 
 void removeRecord(std::vector<Record>& records) {
@@ -132,6 +134,7 @@ void removeRecord(std::vector<Record>& records) {
 }
 
 int main() {
+    unsigned int sortType;
     std::string fileInput;
     std::string fileOutput;
     std::string surname;
@@ -165,7 +168,7 @@ int main() {
                 switch (selected) {
                     case 1:  // Загрузка из файла
                         restoreBufferedInput();
-                        std::cout << "Введите имя файла для загрузки: ";
+                        std::cout << "\033[1mВведите имя файла для загрузки: \033[0m";
                         std::cin >> fileInput;
                         std::cin.ignore();
                         inputFromFile(records, fileInput);
@@ -173,18 +176,16 @@ int main() {
                         break;
                     case 2:  // Сохранение результатов обработки в файлах
                         restoreBufferedInput();
-                        std::cout << "Введите имя файла для сохранения: ";
+                        std::cout << "\033[1mВведите имя файла для сохранения: \033[0m";
                         std::cin >> fileOutput;
                         std::cin.ignore();
                         outputToFile(records, fileOutput);
-                        std::cout << "\033[32mДанные успешно сохранены!\033[0m";
                         disableBufferedInput();
                         break;
                     case 3:  // Добавление записи
                         restoreBufferedInput();
                         addRecord(records);
                         std::cin.ignore();
-                        std::cout << "\033[32mЗапись успешно добавлена!\033[0m";
                         disableBufferedInput();
                         break;
                     case 4:  // Удаление записи
@@ -194,20 +195,59 @@ int main() {
                         printTable(records);
                         break;
                     case 6:  // Алфавитная сортировка по фамилии
-                        customSort(records, compareByOwnerName);
+                        restoreBufferedInput();
+                        std::cout << "\033[1m1. По возрастанию/2. По убыванию: \033[0m";
+                        std::cin >> sortType;
+                        std::cin.ignore();
+                        if (sortType == 1) {
+                            customSort(records, compareByOwnerName, true);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else if (sortType == 2) {
+                            customSort(records, compareByOwnerName, false);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else {
+                            std::cout << "\033[31mТакого варианта нет!\033[0m";
+                        }
+                        disableBufferedInput();
                         break;
                     case 7:  // Сортировка по названию марки автомобиля, а при совпадении марки — по фамилии
-                        customSort(records, compareByCarBrandAndOwnerName);
+                        restoreBufferedInput();
+                        std::cout << "\033[1m1. По возрастанию/2. По убыванию: \033[0m";
+                        std::cin >> sortType;
+                        std::cin.ignore();
+                        if (sortType == 1) {
+                            customSort(records, compareByCarBrandAndOwnerName, true);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else if (sortType == 2) {
+                            customSort(records, compareByCarBrandAndOwnerName, false);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else {
+                            std::cout << "\033[31mТакого варианта нет!\033[0m";
+                        }
+                        disableBufferedInput();
                         break;
                     case 8:  // Числовая сортировка по объему бака автомобиля
-                        customSort(records, compareByTankCapacity);
+                        restoreBufferedInput();
+                        std::cout << "\033[1m1. По возрастанию/2. По убыванию: \033[0m";
+                        std::cin >> sortType;
+                        std::cin.ignore();
+                        if (sortType == 1) {
+                            customSort(records, compareByTankCapacity, true);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else if (sortType == 2) {
+                            customSort(records, compareByTankCapacity, false);
+                            std::cout << "\033[32mДанные успешно отсортированы!\033[0m\n";
+                        } else {
+                            std::cout << "\033[31mТакого варианта нет!\033[0m";
+                        }
+                        disableBufferedInput();
                         break;
                     case 9:  // Перечень марок автомобилей с указанием их числа (результат отсортирован по названию марки автомобиля в алфавитном порядке)
                         printListOfBrands(records);
                         break;
                     case 10:  // Поиск по фамилии владельца (результат отсортирован по маркам в алфавитном порядке)
                         restoreBufferedInput();
-                        std::cout << "Введите фамилию владельца автомобиля: ";
+                        std::cout << "\033[1mВведите фамилию владельца автомобиля: \033[0m";
                         std::cin >> surname;
                         std::cin.ignore();
                         findByOwnerName(records, surname);
