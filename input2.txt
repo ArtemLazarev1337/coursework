@@ -1,0 +1,9 @@
+Toyota Shell 180 50 Ivanov I.I. A123BC77
+Toyota BP 200 55 Petrov P.P. B456CD88
+BMW Gazprom 190 60 Sidorov S.S. C789EF99
+Toyota Lukoil 170 45 Antonov A.A. D123EF77
+BMW Shell 150 40 Ivanova O.O. E111GH33
+Audi Lukoil 210 65 Sergeev R.R. F222IJ44
+Audi Gazprom 190 60 Smirnov S.V. G333KL55
+BMW BP 180 50 Fedorov T.Y. H444MN66
+Audi Shell 200 55 Nikolaev I.I. J555OP77

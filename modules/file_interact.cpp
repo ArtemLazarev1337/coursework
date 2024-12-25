@@ -29,7 +29,7 @@ void inputFromFile(std::vector<Record>& records, const std::string& fileName) {
     std::cout << "\033[32mДанные успешно загружены!\033[0m";
 }
 
-void outputToFile(std::vector<Record>& records, const std::string& fileName) {
+void outputToFile(const std::vector<Record>& records, const std::string& fileName) {
     std::ofstream fout(fileName);
 
     for (Record record : records) {

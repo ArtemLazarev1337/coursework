@@ -88,7 +88,8 @@ void removeRecord(std::vector<Record>& records) {
         std::system("clear");
 
         const int colWidths[] = {4, 15, 12, 14, 15, 16, 12};
-        std::cout << "┌────┬───────────────┬────────────┬──────────────┬───────────────┬────────────────┬────────────┐\n"
+        std::cout << "\033[0;1m↑/↓ — перемещение ↵ — удалить ⌫ — выйти\033[0m\n\n"
+                  << "┌────┬───────────────┬────────────┬──────────────┬───────────────┬────────────────┬────────────┐\n"
                   << "│\e[1m" << centerText("ID", colWidths[0]) << "\e[0m│\e[1m"
                   << centerText("Brand", colWidths[1]) << "\e[0m│\e[1m"
                   << centerText("Fuel Brand", colWidths[2]) << "\e[0m│\e[1m"
@@ -190,6 +191,8 @@ int main() {
                         break;
                     case 4:  // Удаление записи
                         removeRecord(records);
+                        std::system("clear");
+                        renderMenu(MENU, OPTION_COUNT, selected);
                         break;
                     case 5:  // Вывод на экран дисплея данных и результатов обработки
                         printTable(records);
